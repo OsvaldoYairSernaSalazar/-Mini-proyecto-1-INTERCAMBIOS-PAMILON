@@ -1,0 +1,151 @@
+/* =========================
+   ESTILO GLOBAL (todas las páginas)
+   ========================= */
+
+:root{
+  --brand-1:#4e73df;
+  --brand-2:#224abe;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --bg1:#f0f4ff;
+  --bg2:#ffffff;
+}
+
+body{
+  background: linear-gradient(135deg, var(--bg1), var(--bg2));
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* Navbar */
+.navbar{
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.logo-small{
+  height: 62px;
+  width: auto;
+}
+
+/* Tarjeta moderna */
+.app-card{
+  border-radius: 22px;
+  border: 0;
+  background: var(--card);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* Botones */
+.btn-primary{
+  background: linear-gradient(135deg, var(--brand-1), var(--brand-2));
+  border: none;
+}
+.btn-primary:hover{ opacity: .92; }
+
+.btn-success{
+  border: none;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+}
+.btn-outline-secondary, .btn-outline-primary{
+  border-radius: 999px;
+}
+
+/* Títulos */
+.page-title{
+  font-weight: 800;
+  color: var(--brand-2);
+}
+.page-subtitle{
+  color: var(--muted);
+}
+
+/* Inputs */
+.form-control, .form-select{
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+.input-group .btn{
+  border-radius: 14px;
+}
+
+/* Lista scroll para exclusiones */
+.participants-scroll{
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+@media (max-width: 576px){
+  .participants-scroll{ max-height: 260px; }
+}
+.participants-scroll::-webkit-scrollbar{ width: 6px; }
+.participants-scroll::-webkit-scrollbar-thumb{
+  background-color: #cfd6e6;
+  border-radius: 10px;
+}
+
+/* Chip/Item de participante */
+.list-group-item{
+  border-radius: 14px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Contenedor principal (más aire) */
+.main-wrap{
+  padding-top: 22px;
+  padding-bottom: 50px;
+}
+/* ================= HERO INDEX ================= */
+
+.hero-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4e73df, #224abe);
+    color: white;
+}
+
+.hero-title {
+    font-weight: 800;
+}
+
+.hero-subtitle {
+    opacity: 0.9;
+    font-size: 1.2rem;
+}
+
+.hero-logo {
+    max-width: 420px;
+}
+
+.btn-hero {
+    background: white;
+    color: #224abe;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 40px;
+    transition: 0.3s;
+}
+
+.btn-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+/* NAVBAR AZUL MODERNO */
+
+.custom-navbar {
+    background: linear-gradient(135deg, #224abe, #4e73df);
+    padding: 18px 0;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.logo-navbar {
+    height: 75px; /* Más grande */
+    width: auto;
+}
+
+.brand-text {
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: white;
+}
