@@ -1,0 +1,68 @@
+/* --- CONTENEDOR DE EVENTOS --- */
+.app-card .eventos-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important; /* Fuerza las dos columnas */
+    gap: 15px !important;
+    width: 100% !important;
+    margin-top: 10px;
+}
+
+/* --- BOTONES DE EVENTO --- */
+.app-card .btn-evento {
+    /* Reseteo de estilos de botón HTML */
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+    
+    /* Estilo visual */
+    background-color: #f0f4ff !important; /* Azul muy suave */
+    color: #224abe !important;           /* Tu azul brand-2 */
+    padding: 16px 12px !important;
+    border-radius: 14px !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    width: 100% !important;
+    display: block !important;
+}
+
+/* Efecto al pasar el mouse */
+.app-card .btn-evento:hover {
+    background-color: #e0e9ff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(78, 115, 223, 0.1);
+}
+
+/* El botón largo (Día de San Valentín) */
+.app-card .btn-evento.full-width {
+    grid-column: span 2 !important;
+}
+
+/* --- BOTÓN ATRÁS CUADRADO --- */
+.app-card .btn-previo {
+    background: #f1f5f9 !important;
+    border: none !important;
+    min-width: 55px !important;
+    height: 55px !important;
+    border-radius: 14px !important;
+    color: #224abe !important;
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* --- RESPONSIVO PARA MÓVILES --- */
+@media (max-width: 576px) {
+    .app-card .eventos-grid {
+        grid-template-columns: 1fr !important; /* Una sola columna en celular */
+    }
+    .app-card .btn-evento.full-width {
+        grid-column: span 1 !important;
+    }
+}

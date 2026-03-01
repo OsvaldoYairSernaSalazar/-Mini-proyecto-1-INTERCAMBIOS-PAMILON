@@ -36,33 +36,58 @@ function renderParticipants() {
     participants.forEach(person => {
 
         const div = document.createElement("div");
-        div.className = "mb-3";
+        div.className = "mb-4 p-3 border rounded";
 
         const label = document.createElement("label");
         label.className = "form-label fw-bold";
         label.textContent = person;
 
-        const select = document.createElement("select");
-        select.className = "form-select";
-        select.multiple = true;
+        div.appendChild(label);
+
+        // Inicializar arreglo si no existe
+        if (!exclusions[person]) {
+            exclusions[person] = [];
+        }
 
         participants.forEach(other => {
             if (other !== person) {
-                const option = document.createElement("option");
-                option.value = other;
-                option.textContent = other;
-                select.appendChild(option);
+
+                const checkDiv = document.createElement("div");
+                checkDiv.className = "form-check";
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.className = "form-check-input";
+                checkbox.id = person + "_" + other;
+                checkbox.value = other;
+
+                // Si ya estaba guardado, marcarlo
+                if (exclusions[person].includes(other)) {
+                    checkbox.checked = true;
+                }
+
+                checkbox.addEventListener("change", () => {
+
+                    if (checkbox.checked) {
+                        exclusions[person].push(other);
+                    } else {
+                        exclusions[person] = exclusions[person].filter(name => name !== other);
+                    }
+
+                    localStorage.setItem("exclusions", JSON.stringify(exclusions));
+                });
+
+                const checkLabel = document.createElement("label");
+                checkLabel.className = "form-check-label";
+                checkLabel.setAttribute("for", checkbox.id);
+                checkLabel.textContent = other;
+
+                checkDiv.appendChild(checkbox);
+                checkDiv.appendChild(checkLabel);
+                div.appendChild(checkDiv);
             }
         });
 
-        select.addEventListener("change", () => {
-            const selected = Array.from(select.selectedOptions).map(opt => opt.value);
-            exclusions[person] = selected;
-            localStorage.setItem("exclusions", JSON.stringify(exclusions));
-        });
-
-        div.appendChild(label);
-        div.appendChild(select);
         participantsContainer.appendChild(div);
     });
 }
@@ -75,6 +100,8 @@ continueBtn.addEventListener("click", () => {
   text: 'Exclusiones guardadas correctamente.',
   icon: 'success',
   confirmButtonColor: '#224abe'
+}).then(()=> {
+    window.location.href = "tipoEvento.html";
 });
     // Aquí después puedes mandar a sorteo.html
 });
