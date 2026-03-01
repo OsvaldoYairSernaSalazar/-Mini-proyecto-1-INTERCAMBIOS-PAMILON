@@ -1,0 +1,14 @@
+.form-control {
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.input-group .btn {
+  border-radius: 14px;
+}
+
+.list-group-item {
+  border-radius: 14px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+}

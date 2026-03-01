@@ -1,0 +1,32 @@
+.hero-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4e73df, #224abe);
+    color: white;
+}
+
+.hero-title {
+    font-weight: 800;
+}
+
+.hero-subtitle {
+    opacity: 0.9;
+    font-size: 1.2rem;
+}
+
+.hero-logo {
+    max-width: 420px;
+}
+
+.btn-hero {
+    background: white;
+    color: #224abe;
+    font-weight: 700;
+    padding: 14px 28px;
+    border-radius: 40px;
+    transition: 0.3s;
+}
+
+.btn-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
