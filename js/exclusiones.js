@@ -2,106 +2,204 @@ const participants = JSON.parse(localStorage.getItem("participants")) || [];
 
 const questionSection = document.getElementById("questionSection");
 const exclusionsSection = document.getElementById("exclusionsSection");
+
 const participantsContainer = document.getElementById("participantsContainer");
+const dragParticipants = document.getElementById("dragParticipants");
 
 const noExclusionsBtn = document.getElementById("noExclusions");
 const setExclusionsBtn = document.getElementById("setExclusions");
 const continueBtn = document.getElementById("continueBtn");
 
-let exclusions = {}; // objeto donde guardaremos exclusiones
+let exclusions = JSON.parse(localStorage.getItem("exclusions")) || {};
 
-// Si el usuario NO quiere exclusiones
+
+
 noExclusionsBtn.addEventListener("click", () => {
-    exclusions = {};
-    localStorage.setItem("exclusions", JSON.stringify(exclusions));
-    Swal.fire({
-  title: '¡NO EXCLUSIONES!',
-  text: 'Exclusiones no necesarias.',
-  icon: 'success',
-  confirmButtonColor: '#224abe'
-});
+
+exclusions = {};
+
+localStorage.setItem("exclusions", JSON.stringify(exclusions));
+
+Swal.fire({
+title:'¡Sin exclusiones!',
+text:'Se continuará sin restricciones.',
+icon:'success',
+confirmButtonColor:'#224abe'
 });
 
-// Si el usuario quiere establecer exclusiones
+});
+
+
+
 setExclusionsBtn.addEventListener("click", () => {
-    questionSection.classList.add("d-none");
-    exclusionsSection.classList.remove("d-none");
-    renderParticipants();
+
+questionSection.classList.add("d-none");
+exclusionsSection.classList.remove("d-none");
+
+renderParticipants();
+
 });
 
-// Crear lista dinámica
-function renderParticipants() {
-    participantsContainer.innerHTML = "";
 
-    participants.forEach(person => {
 
-        const div = document.createElement("div");
-        div.className = "mb-4 p-3 border rounded";
+function renderParticipants(){
 
-        const label = document.createElement("label");
-        label.className = "form-label fw-bold";
-        label.textContent = person;
+dragParticipants.innerHTML = "";
 
-        div.appendChild(label);
+participants.forEach(person => {
 
-        // Inicializar arreglo si no existe
-        if (!exclusions[person]) {
-            exclusions[person] = [];
-        }
+const item = document.createElement("div");
 
-        participants.forEach(other => {
-            if (other !== person) {
+item.className = "persona d-flex align-items-center gap-2";
 
-                const checkDiv = document.createElement("div");
-                checkDiv.className = "form-check";
+item.draggable = true;
 
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.className = "form-check-input";
-                checkbox.id = person + "_" + other;
-                checkbox.value = other;
+item.innerHTML = `
+<i class="bi bi-person-circle avatar-icon"></i>
+<span>${person}</span>
+`;
 
-                // Si ya estaba guardado, marcarlo
-                if (exclusions[person].includes(other)) {
-                    checkbox.checked = true;
-                }
+item.addEventListener("dragstart", e=>{
+e.dataTransfer.setData("text/plain", person);
+});
+dragParticipants.appendChild(item);
 
-                checkbox.addEventListener("change", () => {
+});
 
-                    if (checkbox.checked) {
-                        exclusions[person].push(other);
-                    } else {
-                        exclusions[person] = exclusions[person].filter(name => name !== other);
-                    }
+renderExclusionZones();
 
-                    localStorage.setItem("exclusions", JSON.stringify(exclusions));
-                });
-
-                const checkLabel = document.createElement("label");
-                checkLabel.className = "form-check-label";
-                checkLabel.setAttribute("for", checkbox.id);
-                checkLabel.textContent = other;
-
-                checkDiv.appendChild(checkbox);
-                checkDiv.appendChild(checkLabel);
-                div.appendChild(checkDiv);
-            }
-        });
-
-        participantsContainer.appendChild(div);
-    });
 }
 
-// Continuar (a futura página de sorteo)
-continueBtn.addEventListener("click", () => {
-    localStorage.setItem("exclusions", JSON.stringify(exclusions));
-   Swal.fire({
-  title: '¡Guardado!',
-  text: 'Exclusiones guardadas correctamente.',
-  icon: 'success',
-  confirmButtonColor: '#224abe'
-}).then(()=> {
-    window.location.href = "tipoEvento.html";
+
+
+function renderExclusionZones(){
+
+participantsContainer.innerHTML = "";
+
+participants.forEach(person => {
+
+if(!exclusions[person]){
+exclusions[person] = [];
+}
+
+const wrapper = document.createElement("div");
+
+wrapper.className = "mb-3 p-3 border rounded";
+
+
+const title = document.createElement("div");
+
+title.className = "fw-bold mb-2";
+
+title.textContent = person + " NO puede regalar a:";
+
+
+const dropZone = document.createElement("div");
+
+dropZone.className = "drop-zone";
+
+dropZone.dataset.person = person;
+
+
+
+dropZone.addEventListener("dragover", e => {
+e.preventDefault();
 });
-    // Aquí después puedes mandar a sorteo.html
+
+
+dropZone.addEventListener("drop", e => {
+
+e.preventDefault();
+
+const draggedPerson = e.dataTransfer.getData("text/plain");
+
+if(draggedPerson === person) return;
+
+if(!exclusions[person].includes(draggedPerson)){
+
+exclusions[person].push(draggedPerson);
+
+const tag = document.createElement("span");
+
+tag.className = "excluded";
+
+tag.textContent = draggedPerson;
+
+
+tag.addEventListener("click", () => {
+
+exclusions[person] = exclusions[person].filter(p => p !== draggedPerson);
+
+tag.remove();
+
+localStorage.setItem("exclusions", JSON.stringify(exclusions));
+
+});
+
+
+dropZone.appendChild(tag);
+
+localStorage.setItem("exclusions", JSON.stringify(exclusions));
+
+}
+
+});
+
+
+
+if(exclusions[person].length > 0){
+
+exclusions[person].forEach(name => {
+
+const tag = document.createElement("span");
+
+tag.className = "excluded";
+
+tag.textContent = name;
+
+tag.addEventListener("click", () => {
+
+exclusions[person] = exclusions[person].filter(p => p !== name);
+
+tag.remove();
+
+localStorage.setItem("exclusions", JSON.stringify(exclusions));
+
+});
+
+dropZone.appendChild(tag);
+
+});
+
+}
+
+
+
+wrapper.appendChild(title);
+
+wrapper.appendChild(dropZone);
+
+participantsContainer.appendChild(wrapper);
+
+});
+
+}
+
+
+
+continueBtn.addEventListener("click", () => {
+
+localStorage.setItem("exclusions", JSON.stringify(exclusions));
+
+Swal.fire({
+title:'¡Guardado!',
+text:'Exclusiones guardadas correctamente.',
+icon:'success',
+confirmButtonColor:'#224abe'
+}).then(()=>{
+
+window.location.href = "tipoEvento.html";
+
+});
+
 });
