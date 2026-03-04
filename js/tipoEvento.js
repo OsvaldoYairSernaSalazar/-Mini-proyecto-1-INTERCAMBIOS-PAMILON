@@ -1,116 +1,93 @@
-// ===============================
-// REFERENCIAS
-// ===============================
 const eventosGrid = document.querySelector(".eventos-grid");
-const botonesEvento = () => document.querySelectorAll(".btn-evento");
-const mostrarMasBtn = document.querySelector(".btn-link");
+const mostrarMasBtn = document.getElementById("mostrarMasBtn");
 const continueBtn = document.getElementById("continueBtn");
 
 let eventoSeleccionado = null;
 
+function activarEventos() {
+  document.querySelectorAll(".btn-evento").forEach((boton) => {
+    boton.onclick = function () {
+      document
+        .querySelectorAll(".btn-evento")
+        .forEach((b) => b.classList.remove("active-event"));
 
-// ===============================
-// FUNCIÓN PARA SELECCIONAR BOTÓN
-// ===============================
-function seleccionarEvento(boton) {
+      this.classList.add("active-event");
 
-    botonesEvento().forEach(btn => btn.classList.remove("active-event"));
-
-    boton.classList.add("active-event");
-
-    eventoSeleccionado = boton.textContent.trim();
+      eventoSeleccionado = this.innerText.trim();
+    };
+  });
 }
 
+activarEventos();
 
-// ===============================
-// ACTIVAR BOTONES EXISTENTES
-// ===============================
-botonesEvento().forEach(boton => {
+mostrarMasBtn.addEventListener("click", () => {
+  Swal.fire({
+    title: "Escribe tu celebración",
 
-    boton.addEventListener("click", function () {
-        seleccionarEvento(this);
-    });
+    input: "text",
 
-});
+    inputPlaceholder: "Ej. Intercambio Familiar",
 
+    showCancelButton: true,
 
-// ===============================
-// CREAR EVENTO PERSONALIZADO
-// ===============================
-mostrarMasBtn.addEventListener("click", function () {
+    confirmButtonText: "Agregar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const nombre = result.value.trim();
 
-    Swal.fire({
-        title: "Escribe tu celebración",
-        input: "text",
-        inputPlaceholder: "Ej. Intercambio Familiar 2026",
-        showCancelButton: true,
-        confirmButtonText: "Agregar",
-        cancelButtonText: "Cancelar",
-        inputValidator: (value) => {
-            if (!value) {
-                return "Debes escribir un nombre";
-            }
-        }
-    }).then((result) => {
+      if (!nombre) return;
 
-        if (result.isConfirmed) {
+      const col = document.createElement("div");
 
-            const nuevoEvento = result.value.trim();
+      col.className = "col-6";
 
-            // Crear botón nuevo
-            const nuevoBoton = document.createElement("button");
-            nuevoBoton.type = "button";
-            nuevoBoton.className = "btn-evento";
-            nuevoBoton.textContent = nuevoEvento;
+      col.innerHTML = `
 
-            // Agregar evento click
-            nuevoBoton.addEventListener("click", function () {
-                seleccionarEvento(this);
-            });
+<button class="btn-evento">
 
-            // Insertarlo al grid
-            eventosGrid.appendChild(nuevoBoton);
+<div class="evento-card">
 
-            // Seleccionarlo automáticamente
-            seleccionarEvento(nuevoBoton);
+<div class="evento-icon">🎉</div>
 
-            Swal.fire({
-                icon: "success",
-                title: "Evento agregado",
-                timer: 1000,
-                showConfirmButton: false
-            });
-        }
+<div class="evento-texto">${nombre}</div>
 
-    });
+</div>
 
-});
+</button>
 
+`;
 
-// ===============================
-// CONTINUAR
-// ===============================
-continueBtn.addEventListener("click", function () {
+      eventosGrid.appendChild(col);
 
-    if (!eventoSeleccionado) {
-        Swal.fire({
-            icon: "warning",
-            title: "Selecciona un evento",
-            text: "Debes elegir un evento antes de continuar."
-        });
-        return;
+      activarEventos();
     }
+  });
+});
 
-    localStorage.setItem("tipoEvento", eventoSeleccionado);
-
+continueBtn.addEventListener("click", () => {
+  if (!eventoSeleccionado) {
     Swal.fire({
-        icon: "success",
-        title: "Evento seleccionado",
-        text: eventoSeleccionado,
-        timer: 1200,
-        showConfirmButton: false
-    }).then(() => {
-        window.location.href = "fecha.html";
+      icon: "warning",
+
+      title: "Selecciona un evento",
+
+      text: "Debes elegir un evento antes de continuar.",
     });
 
+    return;
+  }
+
+  localStorage.setItem("tipoEvento", eventoSeleccionado);
+
+  Swal.fire({
+    icon: "success",
+
+    title: "Evento seleccionado",
+
+    timer: 1000,
+
+    showConfirmButton: false,
+  }).then(() => {
+    window.location.href = "fecha.html";
+  });
 });
