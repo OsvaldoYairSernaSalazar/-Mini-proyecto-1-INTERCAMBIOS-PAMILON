@@ -1,11 +1,107 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fecha | Intercambios Pamilon</title>
+
+<link rel="icon" type="image/png" href="imagenes/logo.png">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/fecha.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 </head>
+
 <body>
-    <p>aqui va lo de la fecha</p>
+
+<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+  <div class="container">
+    
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="imagenes/logo.png" alt="Logo" class="logo-navbar me-3">
+      <span class="brand-text">Intercambios Pamilon</span>
+    </a>
+
+  </div>
+</nav>
+
+
+<div class="container main-wrap">
+
+<div class="row justify-content-center">
+<div class="col-12 col-md-10 col-lg-8 col-xl-7">
+
+<div class="app-card p-4 p-md-5">
+
+<div class="text-center mb-4">
+
+<h1 class="h3 page-title mb-1">Fecha del Evento</h1>
+
+<p class="page-subtitle mb-0">
+Selecciona la fecha del intercambio y el presupuesto del regalo.
+</p>
+
+</div>
+
+
+<!-- Fecha -->
+
+<div class="mb-4">
+
+<label class="form-label fw-bold">Fecha de la celebración</label>
+
+<input type="date" id="fechaEvento" class="form-control">
+
+</div>
+
+
+<!-- Presupuesto -->
+
+<div class="mb-3">
+
+<label class="form-label fw-bold">¿Cuánto gastar en el regalo?</label>
+
+<select id="precioRegalo" class="form-select">
+
+<option value="">Selecciona una opción</option>
+<option value="200">$200 MXN</option>
+<option value="300">$300 MXN</option>
+<option value="500">$500 MXN</option>
+<option value="otro">Otra cantidad</option>
+
+</select>
+
+</div>
+
+
+<input 
+type="number" 
+id="otroPrecio" 
+class="form-control mb-3 d-none"
+placeholder="Escribe otra cantidad">
+
+
+<div class="d-grid mt-4">
+
+<button class="btn btn-success" id="guardarDatos">
+Continuar
+</button>
+
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+<script src="js/fecha.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>
