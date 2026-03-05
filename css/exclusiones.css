@@ -1,20 +1,106 @@
-.participants-scroll {
-  max-height: 380px;
-  overflow-y: auto;
-  padding-right: 6px;
+.drag-list{
+
+min-height:250px;
+
+background:#f8f9fc;
+
+border:1px solid #dee2e6;
+
+border-radius:6px;
+
+padding:10px;
+
 }
 
-@media (max-width: 576px){
-  .participants-scroll{ 
-    max-height: 260px; 
-  }
+
+
+.persona{
+
+padding:8px 12px;
+
+margin-bottom:6px;
+
+background:white;
+
+border:1px solid #dcdcdc;
+
+border-radius:6px;
+
+cursor:grab;
+
+transition:all .2s;
+
 }
 
-.participants-scroll::-webkit-scrollbar{ 
-  width: 6px; 
+
+
+.persona:hover{
+
+background:#f1f4ff;
+
 }
 
-.participants-scroll::-webkit-scrollbar-thumb{
-  background-color: #cfd6e6;
-  border-radius: 10px;
+
+
+.drop-zone{
+
+min-height:60px;
+
+background:#eef2ff;
+
+border:2px dashed #b6c3ff;
+
+border-radius:6px;
+
+padding:8px;
+
+display:flex;
+
+flex-wrap:wrap;
+
+gap:6px;
+
+}
+
+
+
+.excluded{
+
+background:#ffe5e5;
+
+border:1px solid #ffbcbc;
+
+padding:6px 10px;
+
+border-radius:5px;
+
+cursor:pointer;
+
+transition:all .2s;
+
+}
+
+
+
+.excluded:hover{
+
+background:#ffd6d6;
+
+}
+
+
+
+@media(max-width:576px){
+
+.drag-list{
+
+min-height:180px;
+
+}
+
+}
+
+.avatar-icon{
+font-size:25px;
+color:black;
 }
