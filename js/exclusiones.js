@@ -198,7 +198,7 @@ continueBtn.addEventListener("click", () => {
 
   Swal.fire({
     title: "¡Guardado!",
-    text: "Exclusiones guardadas correctamente.",
+    text: "Datos guardados correctamente.",
     icon: "success",
     confirmButtonColor: "#224abe",
   }).then(() => {

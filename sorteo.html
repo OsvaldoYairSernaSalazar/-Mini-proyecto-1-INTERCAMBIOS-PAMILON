@@ -42,12 +42,25 @@
 Presiona el botón para realizar el sorteo respetando las exclusiones.
 </p>
 
-<button class="btn btn-primary mb-4" id="sortearBtn">
-<i class="bi bi-shuffle"></i> Realizar sorteo
-</button>
+<div class="d-flex justify-content-center gap-3 mb-4">
+    
+    <button class="btn btn-primary" id="sortearBtn">
+        <i class="bi bi-shuffle"></i> Realizar sorteo
+    </button>
+
+    <button class="btn btn-outline-secondary" id="mostrarDatosBtn">
+        <i class="bi bi-eye"></i> Mostrar datos
+    </button>
+
+</div>
+
 
 <div id="resultsContainer" class="mt-3"></div>
+<div id="resultsContainer" class="mt-3"></div>
 
+<button class="btn btn-danger mt-4" id="nuevoSorteoBtn" style="display:none;">
+    <i class="bi bi-arrow-repeat"></i> Realizar nuevo sorteo
+</button>
 </div>
 </div>
 </div>
